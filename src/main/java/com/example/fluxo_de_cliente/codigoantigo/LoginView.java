@@ -1,9 +1,7 @@
-package com.example.fluxo_de_cliente.view;
+/*package com.example.fluxo_de_cliente.codigoantigo;
 
-import com.example.fluxo_de_cliente.dao.UsuarioDAO;
 import com.example.fluxo_de_cliente.model.Usuario;
 import com.example.fluxo_de_cliente.service.AuthService;
-import com.example.fluxo_de_cliente.session.UsuarioSessao;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,8 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.util.prefs.Preferences;
 
+import java.util.prefs.Preferences;
 
 public class LoginView extends StackPane {
 
@@ -49,10 +47,10 @@ public class LoginView extends StackPane {
                         "-fx-background-radius: 24;"
         );
         btnLogin.setPrefWidth(160);
-
         btnLogin.setDefaultButton(true);
 
-        VBox conteudo = new VBox(12,
+        VBox conteudo = new VBox(
+                12,
                 titulo,
                 emailField,
                 senhaField,
@@ -66,13 +64,18 @@ public class LoginView extends StackPane {
 
         // Fade só no conteúdo
         conteudo.setOpacity(0);
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(800), conteudo);
+
+        FadeTransition fadeIn = new FadeTransition(
+                Duration.millis(800),
+                conteudo
+        );
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
 
         // Ação de login
         btnLogin.setOnAction(e -> {
+
             String email = emailField.getText();
             String senha = senhaField.getText();
 
@@ -101,6 +104,5 @@ public class LoginView extends StackPane {
 
             stage.setResizable(false);
         });
-
     }
-}
+}*/

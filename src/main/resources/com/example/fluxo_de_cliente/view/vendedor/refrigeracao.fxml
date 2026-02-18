@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.fluxo_de_cliente.controller.vendedor.RefrigeracaoController"
+           style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #b3e0ff, white);">
+
+    <VBox spacing="20" alignment="TOP_CENTER">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+
+        <Label text="Parte de Refrigeração"
+               style="-fx-font-size: 22; -fx-text-fill: #23336f;" />
+
+        <GridPane hgap="10" vgap="10">
+
+            <Label text="Distância do maquinário (m)" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtDistanciaMaquina" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Temp. entrada (°C)" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtTempEntrada" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Temp. externa" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cbTempExterna" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Temp. interna (°C)" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtTempInterna" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Horas de operação" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <Spinner fx:id="spHorasOperacao" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Tensão" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cbTensao" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        </GridPane>
+
+        <Button text="Voltar para Montagem"
+                fx:id="btnVoltar"
+                onAction="#voltar"/>
+
+    </VBox>
+
+</StackPane>

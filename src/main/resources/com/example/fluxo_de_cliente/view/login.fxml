@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.fluxo_de_cliente.controller.LoginController"
+           style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #b3e0ff, white);">
+
+    <VBox fx:id="conteudo"
+          alignment="CENTER"
+          spacing="12"
+          maxWidth="260">
+
+        <Label text="LOGIN"
+               style="-fx-font-size: 24; -fx-text-fill: #23336f;"/>
+
+        <TextField fx:id="emailField"
+                   promptText="Email"/>
+
+        <PasswordField fx:id="senhaField"
+                       promptText="Senha"/>
+
+        <Button fx:id="btnLogin"
+                text="Entrar"
+                prefWidth="160"
+                defaultButton="true"
+                onAction="#fazerLogin"
+                style="-fx-background-color: #245edb;
+                       -fx-text-fill: white;
+                       -fx-background-radius: 24;"/>
+
+        <Label fx:id="mensagemErro"
+               style="-fx-text-fill: red;"/>
+
+    </VBox>
+
+</StackPane>

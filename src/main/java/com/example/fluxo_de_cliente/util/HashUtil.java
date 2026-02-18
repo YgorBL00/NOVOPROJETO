@@ -26,4 +26,8 @@ public class HashUtil {
         String hashSenha = gerarHash(senhaDigitada); // usa gerarHash
         return hashSenha != null && hashSenha.equals(hashArmazenado);
     }
+
+    public static void main(String[] args) {
+        System.out.println(HashUtil.gerarHash("1234"));
+    }
 }

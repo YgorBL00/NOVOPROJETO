@@ -1,4 +1,5 @@
-package com.example.fluxo_de_cliente.view;
+/*
+package com.example.fluxo_de_cliente.codigoantigo;
 
 import com.example.fluxo_de_cliente.model.InfoCamara;
 import com.example.fluxo_de_cliente.model.Usuario;
@@ -244,9 +245,11 @@ public class InfoCamaraView extends StackPane {
         gridRefrigeracao.add(chkCarenagem, 1, l++);
         gridRefrigeracao.add(chkSuporte, 1, l++);
 
-        /*gridRefrigeracao.add(new Label("Tipo do produto"), 0, l);
+        */
+/*gridRefrigeracao.add(new Label("Tipo do produto"), 0, l);
         gridRefrigeracao.add(
-                txtTipoProduto, 1, l++);*/
+                txtTipoProduto, 1, l++);*//*
+
 
         gridRefrigeracao.add(new Label("Temp. entrada do produto (°C)"), 0, l);
         gridRefrigeracao.add(txtTempEntrada, 1, l++);
@@ -308,3 +311,4 @@ public class InfoCamaraView extends StackPane {
 
     }
 }
+*/

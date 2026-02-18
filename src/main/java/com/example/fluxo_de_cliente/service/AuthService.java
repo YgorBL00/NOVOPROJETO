@@ -24,4 +24,7 @@ public class AuthService {
         u.setCargo("VENDEDOR");
         usuarioDAO.criarUsuario(u);
     }
+    public Usuario loginAutomatico(String email) {
+        return usuarioDAO.buscarPorEmail(email);
+    }
 }

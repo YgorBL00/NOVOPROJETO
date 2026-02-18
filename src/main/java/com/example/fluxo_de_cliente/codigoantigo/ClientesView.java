@@ -1,4 +1,5 @@
-package com.example.fluxo_de_cliente.view;
+/*
+package com.example.fluxo_de_cliente.codigoantigo;
 
 import com.example.fluxo_de_cliente.dao.ClienteDAO;
 import com.example.fluxo_de_cliente.model.Cliente;
@@ -98,3 +99,4 @@ public class ClientesView extends BorderPane {
         setBottom(rodape);
     }
 }
+*/

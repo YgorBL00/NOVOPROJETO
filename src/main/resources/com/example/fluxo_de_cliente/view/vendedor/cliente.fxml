@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fluxo_de_cliente.controller.vendedor.ClientesController"
+            style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #b3e0ff, white);">
+
+    <!-- TOPO -->
+    <top>
+        <Label text="Clientes Cadastrados"
+               style="-fx-font-size: 22; -fx-text-fill: #23336f;">
+            <BorderPane.margin>
+                <Insets top="20" left="20"/>
+            </BorderPane.margin>
+        </Label>
+    </top>
+
+    <!-- CENTRO -->
+    <center>
+        <TableView fx:id="tabela"
+                   columnResizePolicy="CONSTRAINED_RESIZE_POLICY"/>
+    </center>
+
+    <!-- RODAPÉ -->
+    <bottom>
+        <VBox alignment="CENTER_RIGHT"
+              spacing="10">
+            <padding>
+                <Insets top="10" right="15" bottom="15"/>
+            </padding>
+
+            <Button text="Voltar"
+                    onAction="#voltar"/>
+        </VBox>
+    </bottom>
+
+</BorderPane>

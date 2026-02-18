@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fluxo_de_cliente.controller.admin.MaterialListViewController"
+            prefWidth="1150" prefHeight="750">
+
+    <top>
+        <Label text="Lista de Materiais" style="-fx-font-size: 24;" BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <VBox spacing="15" alignment="CENTER" padding="20">
+            <TableView fx:id="tableMateriais" prefHeight="500" prefWidth="1100">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID"/>
+                    <TableColumn fx:id="colNome" text="Nome"/>
+                    <TableColumn fx:id="colValor" text="Valor"/>
+                    <TableColumn fx:id="colUnidade" text="U.M"/>
+                    <TableColumn fx:id="colClasse" text="Classe"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="btnCriar" text="Criar"/>
+                <Button fx:id="btnEditar" text="Editar"/>
+                <Button fx:id="btnExcluir" text="Excluir"/>
+                <Button fx:id="btnVoltar" text="Voltar"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

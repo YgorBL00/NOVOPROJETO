@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.fluxo_de_cliente.controller.admin.CriarVendedorController"
+           style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #b3e0ff, white);">
+
+    <VBox fx:id="conteudo"
+          alignment="CENTER"
+          spacing="12"
+          maxWidth="300">
+
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <Label text="Área do Administrador"
+               style="-fx-font-size: 24; -fx-text-fill: #23336f;" />
+
+        <Label fx:id="nomeAdmin"
+               style="-fx-font-size: 16;" />
+
+        <Separator/>
+
+        <Label text="Criar Novo Vendedor"/>
+
+        <TextField fx:id="nomeField"
+                   promptText="Nome do vendedor"/>
+
+        <TextField fx:id="emailField"
+                   promptText="Email do vendedor"/>
+
+        <PasswordField fx:id="senhaField"
+                       promptText="Senha"/>
+
+        <Button text="Criar Vendedor"
+                fx:id="criarBtn"
+                onAction="#criarVendedor"/>
+
+        <Label fx:id="mensagem"/>
+
+    </VBox>
+
+</StackPane>

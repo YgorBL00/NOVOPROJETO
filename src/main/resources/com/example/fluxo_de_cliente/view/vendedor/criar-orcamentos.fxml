@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.fluxo_de_cliente.controller.vendedor.CriarOrcamentosController"
+           style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #b3e0ff, white);">
+
+    <VBox fx:id="conteudo"
+          spacing="15"
+          alignment="TOP_CENTER"
+          maxWidth="700">
+
+        <padding>
+            <Insets top="20"/>
+        </padding>
+
+        <Label text="Cadastro de Cliente"
+               style="-fx-font-size: 24; -fx-text-fill: #23336f;"/>
+
+        <GridPane hgap="10" vgap="10">
+            <padding>
+                <Insets top="20"/>
+            </padding>
+
+            <!-- Linha 1 -->
+            <Label text="CNPJ / CPF" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtDocumento"
+                       promptText="CNPJ ou CPF"
+                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Button fx:id="btnBuscar"
+                    text="Buscar CNPJ"
+                    onAction="#buscarCnpj"
+                    GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+
+            <!-- Nome -->
+            <Label text="Nome" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtNome"
+                       promptText="Razão Social / Nome"
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"
+                       GridPane.columnSpan="2"/>
+
+            <!-- Telefone -->
+            <Label text="Telefone" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtTelefone"
+                       promptText="Telefone"
+                       GridPane.rowIndex="2" GridPane.columnIndex="1"
+                       GridPane.columnSpan="2"/>
+
+            <!-- Endereço -->
+            <Label text="Endereço" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtEndereco"
+                       promptText="Endereço"
+                       GridPane.rowIndex="3" GridPane.columnIndex="1"
+                       GridPane.columnSpan="2"/>
+
+            <!-- Bairro -->
+            <Label text="Bairro" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtBairro"
+                       promptText="Bairro"
+                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <!-- Município -->
+            <Label text="Município" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtMunicipio"
+                       promptText="Município"
+                       GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <!-- UF -->
+            <Label text="UF" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtEstado"
+                       promptText="UF"
+                       GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+            <!-- CEP -->
+            <Label text="CEP" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+            <TextField fx:id="txtCep"
+                       promptText="CEP"
+                       GridPane.rowIndex="6" GridPane.columnIndex="3"/>
+        </GridPane>
+
+        <VBox alignment="CENTER_RIGHT" spacing="10">
+            <Button text="Salvar Cliente" onAction="#salvarCliente"/>
+            <Button text="Voltar" onAction="#voltar"/>
+            <Button text="Próxima Página" onAction="#proximo"/>
+        </VBox>
+
+    </VBox>
+
+</StackPane>

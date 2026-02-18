@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.fluxo_de_cliente.controller.admin.MaterialFormPopupController"
+      spacing="10" alignment="CENTER" padding="20" prefWidth="300" prefHeight="320">
+
+    <TextField fx:id="nomeField" promptText="Nome"/>
+    <TextField fx:id="valorField" promptText="Valor"/>
+    <ComboBox fx:id="unidadeCombo"/>
+    <ComboBox fx:id="classeCombo"/>
+    <Button fx:id="btnSalvar" text="Salvar"/>
+    <Label fx:id="mensagem"/>
+</VBox>
