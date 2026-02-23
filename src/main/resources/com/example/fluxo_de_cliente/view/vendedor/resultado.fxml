@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
+<BorderPane fx:id="root"
+            xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.fluxo_de_cliente.controller.vendedor.ResultadoController"
-            style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #cceeff, #ffffff);">
+            style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #b3e0ff, white);">
 
-    <padding>
-        <Insets top="25" right="25" bottom="25" left="25"/>
-    </padding>
-
-    <!-- TOPO -->
     <top>
         <HBox alignment="CENTER" spacing="15">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
             <Button fx:id="btnAnterior" text="◀"/>
-            <Label fx:id="lblTitulo"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+            <Label fx:id="lblTitulo"/>
             <Button fx:id="btnProximo" text="▶"/>
         </HBox>
     </top>
 
-    <!-- CENTRO -->
     <center>
         <ScrollPane fitToWidth="true">
             <VBox fx:id="conteudo" spacing="15">
                 <padding>
-                    <Insets top="20"/>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
             </VBox>
         </ScrollPane>

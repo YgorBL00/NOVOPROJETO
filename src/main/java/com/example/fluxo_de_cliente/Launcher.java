@@ -25,19 +25,35 @@ public class Launcher extends Application {
             e.printStackTrace();
         }
 
-        Navegador.init(stage); // 🔥 inicializa
+        try {
 
-        Navegador.trocarTela("painel-inicial.fxml");
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/com/example/fluxo_de_cliente/view/painel-inicial.fxml"
+                    )
+            );
 
-        stage.setTitle("Fluxo de Cliente");
-        stage.setResizable(false);
+            Parent root = loader.load();
 
-        stage.getIcons().add(
-                new Image(getClass().getResourceAsStream(
-                        "/com/example/fluxo_de_cliente/icons/icone.png"))
-        );
+            Scene scene = new Scene(root, 1150, 750);
 
-        stage.show();
+            Navegador.init(scene); // ✅ agora passa Scene
+
+            stage.setScene(scene);
+
+            stage.setTitle("Fluxo de Cliente");
+            stage.setResizable(false);
+
+            stage.getIcons().add(
+                    new Image(getClass().getResourceAsStream(
+                            "/com/example/fluxo_de_cliente/icons/icone.png"))
+            );
+
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

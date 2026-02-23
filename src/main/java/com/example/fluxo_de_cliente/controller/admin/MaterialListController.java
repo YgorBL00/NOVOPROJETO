@@ -4,6 +4,7 @@ import com.example.fluxo_de_cliente.model.Material;
 import com.example.fluxo_de_cliente.model.Usuario;
 import com.example.fluxo_de_cliente.service.MaterialService;
 import com.example.fluxo_de_cliente.controller.admin.MaterialFormPopupController;
+import com.example.fluxo_de_cliente.util.Navegador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,10 +29,8 @@ public class MaterialListController {
     private final MaterialService materialService = new MaterialService();
     private ObservableList<Material> materiais;
     private Usuario usuario;
-    private Stage stage;
 
-    public void initData(Stage stage, Usuario usuario) {
-        this.stage = stage;
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         carregarMateriais();
         configurarBotoes();
@@ -61,21 +60,27 @@ public class MaterialListController {
                 materiais.setAll(materialService.buscarTodos());
             }
         });
-        btnVoltar.setOnAction(e -> stage.setScene(new Scene(
-                new com.example.fluxo_de_cliente.codigoantigo.AreaDoAdminView(stage, usuario),
-                1150, 750
-        )));
+        btnVoltar.setOnAction(e ->
+                Navegador.trocarTela("admin/area-admin.fxml", controller -> {
+                    AreaAdminController c = (AreaAdminController) controller;
+                    c.setUsuario(usuario);
+                })
+        );
     }
 
     private void abrirPopup(Material material) {
-        MaterialFormPopupController popup = new MaterialFormPopupController(stage, material, m -> {
+
+        var resultado = MaterialFormPopupController.show(material);
+
+        resultado.ifPresent(m -> {
+
             if (material == null) {
                 materialService.salvar(m);
             } else {
                 materialService.atualizar(m);
             }
+
             materiais.setAll(materialService.buscarTodos());
         });
-        popup.show();
     }
 }

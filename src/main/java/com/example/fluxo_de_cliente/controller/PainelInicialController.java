@@ -4,13 +4,9 @@ import com.example.fluxo_de_cliente.util.Navegador;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,6 +49,6 @@ public class PainelInicialController implements Initializable {
 
     @FXML
     private void abrirLogin() {
-        Navegador.trocarTela("login.fxml");
+        Navegador.trocarTela("/com/example/fluxo_de_cliente/view/login.fxml");
     }
 }

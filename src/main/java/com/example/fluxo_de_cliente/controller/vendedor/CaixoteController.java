@@ -2,6 +2,7 @@ package com.example.fluxo_de_cliente.controller.vendedor;
 
 import com.example.fluxo_de_cliente.model.Usuario;
 import com.example.fluxo_de_cliente.service.FormatoCalculator;
+import com.example.fluxo_de_cliente.util.Navegador;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -72,10 +73,21 @@ public class CaixoteController {
 
             var resultados = FormatoCalculator.calcularTodos(C, L, A, E, possuiPiso);
 
-            stage.setScene(new Scene(
-                    new ResultadoController(stage, usuario, resultados, possuiPiso, cbEspessura.getValue()),
-                    1150, 750
-            ));
+            // 🔥 TROCA PROFISSIONAL DE TELA
+            Navegador.trocarTela(
+                    "/com/example/fluxo_de_cliente/view/vendedor/Resultado.fxml",
+                    controller -> {
+
+                        ResultadoController c = (ResultadoController) controller;
+
+                        c.setDados(
+                                usuario,
+                                resultados,
+                                possuiPiso,
+                                cbEspessura.getValue()
+                        );
+                    }
+            );
 
         } catch (Exception e) {
 

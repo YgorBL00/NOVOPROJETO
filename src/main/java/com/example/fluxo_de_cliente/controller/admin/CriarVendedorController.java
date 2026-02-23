@@ -2,11 +2,11 @@ package com.example.fluxo_de_cliente.controller.admin;
 
 import com.example.fluxo_de_cliente.model.Usuario;
 import com.example.fluxo_de_cliente.service.AuthService;
+import com.example.fluxo_de_cliente.util.Navegador;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class CriarVendedorController {
@@ -19,11 +19,10 @@ public class CriarVendedorController {
     @FXML private Label mensagem;
 
     private final AuthService authService = new AuthService();
-    private Stage stage;
     private Usuario usuario;
 
-    public void setDados(Stage stage, Usuario usuario) {
-        this.stage = stage;
+    // 🔥 Agora sem Stage
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         nomeAdmin.setText("Bem-vindo, " + usuario.getNome());
     }
@@ -65,7 +64,16 @@ public class CriarVendedorController {
         } catch (Exception e) {
             mensagem.setText("Erro ao criar vendedor.");
             mensagem.setStyle("-fx-text-fill: red;");
-            e.printStackTrace();
         }
+    }
+
+    // 🔥 Botão voltar usando Navegador
+    @FXML
+    private void voltar() {
+
+        Navegador.trocarTela("admin/area-admin.fxml", controller -> {
+            AreaAdminController c = (AreaAdminController) controller;
+            c.setUsuario(usuario);
+        });
     }
 }

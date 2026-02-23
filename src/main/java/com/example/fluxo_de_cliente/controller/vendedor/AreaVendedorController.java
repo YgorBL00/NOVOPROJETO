@@ -26,10 +26,10 @@ public class AreaVendedorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        criarCard("Criar Orçamentos", "criar-orcamento.fxml");
-        criarCard("Clientes", "clientes.fxml");
-        criarCard("Calculo de Paineis", "painel-calculo.fxml");
-        criarCard("Projeto", "caixote.fxml");
+        criarCard("Criar Orçamentos", "/com/example/fluxo_de_cliente/view/vendedor/criar-orcamento.fxml");
+        criarCard("Clientes", "/com/example/fluxo_de_cliente/view/vendedor/clientes.fxml");
+        criarCard("Calculo de Paineis", "/com/example/fluxo_de_cliente/view/vendedor/painel-calculo.fxml");
+        criarCard("Projeto", "/com/example/fluxo_de_cliente/view/vendedor/caixote.fxml");
 
         // Fade In
         conteudo.setOpacity(0);

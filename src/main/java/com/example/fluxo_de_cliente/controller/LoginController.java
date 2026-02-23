@@ -61,17 +61,24 @@ public class LoginController implements Initializable {
 
         if (usuario.getCargo().equalsIgnoreCase("ADMIN")) {
 
-            Navegador.trocarTela("area-admin.fxml", controller -> {
-                com.example.fluxo_de_cliente.controller.admin.AreaAdminController ctrl = (com.example.fluxo_de_cliente.controller.admin.AreaAdminController) controller;
-                ctrl.setUsuario(usuario);
-            });
+            Navegador.trocarTela(
+                    "/com/example/fluxo_de_cliente/view/admin/area-admin.fxml",
+                    controller -> {
+                        com.example.fluxo_de_cliente.controller.admin.AreaAdminController ctrl =
+                                (com.example.fluxo_de_cliente.controller.admin.AreaAdminController) controller;
+                        ctrl.setUsuario(usuario);
+                    }
+            );
 
         } else {
 
-            Navegador.trocarTela("area-vendedor.fxml", controller -> {
-                AreaVendedorController ctrl = (AreaVendedorController) controller;
-                ctrl.setUsuario(usuario);
-            });
+            Navegador.trocarTela(
+                    "/com/example/fluxo_de_cliente/view/vendedor/area-vendedor.fxml",
+                    controller -> {
+                        AreaVendedorController ctrl = (AreaVendedorController) controller;
+                        ctrl.setUsuario(usuario);
+                    }
+            );
         }
     }
 }
