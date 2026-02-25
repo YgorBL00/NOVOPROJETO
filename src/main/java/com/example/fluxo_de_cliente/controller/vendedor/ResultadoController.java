@@ -3,13 +3,12 @@ package com.example.fluxo_de_cliente.controller.vendedor;
 import com.example.fluxo_de_cliente.model.Usuario;
 import com.example.fluxo_de_cliente.service.FormatoCalculator;
 import com.example.fluxo_de_cliente.service.FormatoCalculator.ResultadoFormato;
+import com.example.fluxo_de_cliente.util.Navegador;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 
 import java.util.Comparator;
 import java.util.List;
@@ -20,26 +19,78 @@ public class ResultadoController {
     @FXML private Label lblTitulo;
     @FXML private Button btnAnterior;
     @FXML private Button btnProximo;
+    @FXML private ScrollPane scrollPane;
 
-    private Stage stage;
     private Usuario usuario;
     private List<ResultadoFormato> resultados;
     private boolean possuiPiso;
-    private double espessuraMm;
+    private int espessuraMm;
     private int indiceAtual = 0;
 
-    public void setDados(Stage stage,
-                         Usuario usuario,
-                         List<ResultadoFormato> resultados,
-                         boolean possuiPiso,
-                         double espessuraMm) {
+    /* =========================
+       CICLO DE VIDA
+       ========================= */
 
-        this.stage = stage;
+    @FXML
+    public void initialize() {
+
+        btnAnterior.setOnAction(e -> navegar(-1));
+        btnProximo.setOnAction(e -> navegar(1));
+
+        btnAnterior.setDisable(true);
+        btnProximo.setDisable(true);
+
+        // Espera a cena carregar totalmente
+        javafx.application.Platform.runLater(() -> {
+            scrollPane.setStyle("-fx-background-color: transparent;");
+
+            Region viewport = (Region) scrollPane.lookup(".viewport");
+            if (viewport != null) {
+                viewport.setStyle("-fx-background-color: transparent;");
+            }
+        });
+    }
+
+    /* =========================
+       MÉTODO ÚNICO DE ENTRADA
+       ========================= */
+
+    public void carregarDados(
+            Usuario usuario,
+            List<ResultadoFormato> resultados,
+            boolean possuiPiso,
+            int espessuraMm
+    ) {
         this.usuario = usuario;
         this.resultados = resultados;
         this.possuiPiso = possuiPiso;
         this.espessuraMm = espessuraMm;
 
+        definirMelhorResultado();
+        atualizarEstadoBotoes();
+        atualizarTela();
+    }
+
+    /* =========================
+       NAVEGAÇÃO
+       ========================= */
+
+    private void navegar(int delta) {
+        indiceAtual = (indiceAtual + delta + resultados.size()) % resultados.size();
+        atualizarTela();
+    }
+
+    private void atualizarEstadoBotoes() {
+        boolean ativo = resultados != null && resultados.size() > 1;
+        btnAnterior.setDisable(!ativo);
+        btnProximo.setDisable(!ativo);
+    }
+
+    /* =========================
+       LÓGICA
+       ========================= */
+
+    private void definirMelhorResultado() {
         ResultadoFormato melhor = resultados.stream()
                 .min(Comparator
                         .comparingInt((ResultadoFormato r) -> r.totalPaineis)
@@ -49,22 +100,6 @@ public class ResultadoController {
         if (melhor != null) {
             indiceAtual = resultados.indexOf(melhor);
         }
-
-        atualizarTela();
-    }
-
-    @FXML
-    public void initialize() {
-
-        btnAnterior.setOnAction(e -> {
-            indiceAtual = (indiceAtual - 1 + resultados.size()) % resultados.size();
-            atualizarTela();
-        });
-
-        btnProximo.setOnAction(e -> {
-            indiceAtual = (indiceAtual + 1) % resultados.size();
-            atualizarTela();
-        });
     }
 
     private void atualizarTela() {
@@ -88,7 +123,7 @@ public class ResultadoController {
                 r.recortesTeto
         ));
 
-        if (possuiPiso) {
+        if (possuiPiso && r.requerPiso) {
             conteudo.getChildren().add(secao(
                     "PISO",
                     r.paineisPiso,
@@ -98,61 +133,149 @@ public class ResultadoController {
         }
 
         criarResumo(r);
-        criarBotoes(r);
+        criarBotoes();
     }
 
-    private VBox secao(String titulo,
-                       int quantidade,
-                       double altura,
+    /* =========================
+       COMPONENTES
+       ========================= */
+
+    private VBox secao(String tipo,
+                       int quantidadePaineis,
+                       double alturaPainel,
                        List<FormatoCalculator.Recorte> recortes) {
 
         VBox box = new VBox(8);
         box.setPadding(new Insets(15));
-        box.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
+        box.setStyle("""
+        -fx-background-color: white;
+        -fx-background-radius: 10;
+        -fx-border-radius: 10;
+        -fx-border-color: #d9d9d9;
+        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    """);
 
-        Label lbl = new Label(titulo);
-        lbl.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        // ===== TÍTULO =====
+        Label tituloLbl = new Label(tipo);
+        tituloLbl.setStyle("""
+        -fx-font-size: 15px;
+        -fx-font-weight: bold;
+        -fx-text-fill: #2b7cff;
+    """);
 
-        Label qtd = new Label(quantidade + " painéis de "
-                + espessuraMm + "mm");
+        box.getChildren().addAll(tituloLbl, new Separator());
 
-        box.getChildren().addAll(lbl, qtd);
+        double largura = FormatoCalculator.LARGURA_PAINEL;
+
+        int qtdRecortes = (recortes == null) ? 0 : recortes.size();
+        int qtdInteiros = quantidadePaineis - qtdRecortes;
+
+        // ===== PAINÉIS INTEIROS =====
+        if (qtdInteiros > 0) {
+            String linhaInteiros = String.format(
+                    "%d PAINEIS DE PIR %dmm %.2fX%.2fm - %s",
+                    qtdInteiros,
+                    espessuraMm,
+                    largura,
+                    alturaPainel,
+                    tipo
+            );
+            box.getChildren().add(labelLinha(linhaInteiros));
+        }
+
+        // ===== PAINÉIS COM RECORTE =====
+        if (qtdRecortes > 0) {
+            for (FormatoCalculator.Recorte r : recortes) {
+                String linhaRecorte = String.format(
+                        "1 PAINEL DE PIR %dmm %.2fX%.2fm (RECORTE) - %s",
+                        espessuraMm,
+                        r.largura,
+                        r.altura,
+                        tipo
+                );
+                box.getChildren().add(labelLinha(linhaRecorte));
+            }
+        }
 
         return box;
+    }
+
+    private Label labelLinha(String texto) {
+        Label lbl = new Label(texto);
+        lbl.setStyle("""
+        -fx-font-size: 14px;
+        -fx-font-weight: bold;
+        -fx-text-fill: #333;
+    """);
+        return lbl;
     }
 
     private void criarResumo(ResultadoFormato r) {
 
         VBox resumo = new VBox(10);
         resumo.setPadding(new Insets(15));
-        resumo.setStyle("-fx-background-color: #f2f8ff; -fx-background-radius: 10;");
+        resumo.setStyle("""
+        -fx-background-color: #f2f8ff;
+        -fx-background-radius: 10;
+        -fx-border-radius: 10;
+        -fx-border-color: #2b7cff;
+        -fx-border-width: 1.5;
+    """);
 
-        Label lblTotal = new Label("Total de painéis: " + r.totalPaineis);
+        Label titulo = new Label("RESUMO FINAL");
+        titulo.setStyle("""
+        -fx-font-size: 18px;
+        -fx-font-weight: bold;
+        -fx-text-fill: #2b7cff;
+    """);
 
-        resumo.getChildren().add(lblTotal);
+        double largura = FormatoCalculator.LARGURA_PAINEL;
+
+        double areaParede = r.paineisParede * largura * r.alturaParedeReal;
+        double areaTeto   = r.paineisTeto   * largura * r.alturaTetoReal;
+        double areaPiso   = possuiPiso
+                ? r.paineisPiso * largura * r.alturaPisoReal
+                : 0;
+
+        double areaTotal = areaParede + areaTeto + areaPiso;
+
+        resumo.getChildren().addAll(
+                titulo,
+                new Label("Total de painéis: " + r.totalPaineis),
+                new Label(String.format("Área total de painel: %.2f m²", areaTotal)),
+                new Label(String.format("Desperdício: %.2f m²", r.desperdicioM2)),
+                new Label(String.format("Aproveitamento: %.1f%%", r.aproveitamento))
+        );
+
         conteudo.getChildren().add(resumo);
     }
 
-    private void criarBotoes(ResultadoFormato r) {
+    private void criarBotoes() {
 
         HBox botoes = new HBox(15);
         botoes.setAlignment(Pos.CENTER);
 
         Button btnVoltar = new Button("Voltar");
         Button btnMateriais = new Button("Lista de Materiais");
+        Button btnPlantaBaixa = new Button("Planta Baixa"); // 👈 NOVO
 
-        btnVoltar.setOnAction(e -> voltar());
-        btnMateriais.setOnAction(e -> listaMateriais(r));
+        btnVoltar.setOnAction(e -> Navegador.trocarTela("vendedor/caixote.fxml", c ->
+                ((CaixoteController) c).setUsuario(usuario)
+        ));
 
-        botoes.getChildren().addAll(btnVoltar, btnMateriais);
+        btnPlantaBaixa.setOnAction(e ->
+                Navegador.trocarTela("vendedor/planta_baixa.fxml", c -> {
+                    PlantaBaixaController controller = (PlantaBaixaController) c;
+                    controller.carregarDados(resultados.get(indiceAtual));
+                })
+        );
+
+        botoes.getChildren().addAll(
+                btnVoltar,
+                btnMateriais,
+                btnPlantaBaixa // 👈 adiciona aqui
+        );
+
         conteudo.getChildren().add(botoes);
-    }
-
-    private void voltar() {
-        // implementar navegação
-    }
-
-    private void listaMateriais(ResultadoFormato r) {
-        // implementar navegação
     }
 }

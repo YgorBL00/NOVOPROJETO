@@ -14,7 +14,8 @@
 
     <!-- TOPO -->
     <top>
-        <HBox alignment="CENTER" spacing="15">
+        <HBox alignment="CENTER" spacing="15"
+              prefHeight="80">
             <Button fx:id="btnAnterior" text="◀"/>
             <Label fx:id="lblTitulo"
                    style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
@@ -24,7 +25,8 @@
 
     <!-- CENTRO -->
     <center>
-        <ScrollPane fitToWidth="true">
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true">
             <VBox fx:id="conteudo" spacing="15">
                 <padding>
                     <Insets top="20"/>

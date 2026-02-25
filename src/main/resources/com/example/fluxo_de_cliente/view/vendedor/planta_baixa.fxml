@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fluxo_de_cliente.controller.vendedor.PlantaBaixaController"
+            style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #ffffff, #eef6ff);">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- CENTRO -->
+    <center>
+        <StackPane
+                style="
+                    -fx-background-color: white;
+                    -fx-border-color: #2b7cff;
+                    -fx-border-radius: 10;
+                    -fx-background-radius: 10;
+                ">
+
+            <Canvas fx:id="canvas"
+                    width="900"
+                    height="500"/>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

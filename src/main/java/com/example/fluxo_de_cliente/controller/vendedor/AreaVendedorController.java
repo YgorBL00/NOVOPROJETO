@@ -29,7 +29,7 @@ public class AreaVendedorController implements Initializable {
         criarCard("Criar Orçamentos", "criar-orcamento.fxml");
         criarCard("Clientes", "clientes.fxml");
         criarCard("Calculo de Paineis", "painel-calculo.fxml");
-        criarCard("Projeto", "caixote.fxml");
+        criarCard("Projeto", "vendedor/caixote.fxml");
 
         // Fade In
         conteudo.setOpacity(0);

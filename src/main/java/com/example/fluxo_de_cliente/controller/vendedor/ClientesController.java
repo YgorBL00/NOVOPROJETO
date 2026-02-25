@@ -69,7 +69,7 @@ public class ClientesController implements Initializable {
         fadeOut.setToValue(0);
 
         fadeOut.setOnFinished(ev ->
-                Navegador.trocarTela("vendedor/area-vendedor.fxml", controller -> {
+                Navegador.trocarTela("vendedor/AreaVendedorView.fxml", controller -> {
                     try {
                         controller.getClass()
                                 .getMethod("setUsuario", Usuario.class)

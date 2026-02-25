@@ -16,6 +16,9 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) {
+        System.out.println(
+                Launcher.class.getResource("/com/example/fluxo_de_cliente/icons/logo.png")
+        );
 
         try (Connection conn = DatabaseConnection.getConnection()) {
             if (!VersaoChecker.verificarVersao(conn)) {
@@ -41,12 +44,16 @@ public class Launcher extends Application {
     }
 
 
+
     public static void main(String[] args) {
         launch(args);
     }
+
+
 
     // Melhor deixar isso fora do Launcher depois
     public static class AppInfo {
         public static final String VERSAO_ATUAL = "1.2.0";
     }
+
 }

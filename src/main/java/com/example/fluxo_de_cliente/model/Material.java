@@ -39,4 +39,28 @@ public class Material {
     public String getClasse() { return classe.get(); }
     public void setClasse(String classe) { this.classe.set(classe); }
     public StringProperty classeProperty() { return classe; }
+
+    public class Espessura {
+
+        private int id;
+        private int valorMm;
+
+        public Espessura(int id, int valorMm) {
+            this.id = id;
+            this.valorMm = valorMm;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public int getValorMm() {
+            return valorMm;
+        }
+
+        @Override
+        public String toString() {
+            return valorMm + " mm";
+        }
+    }
 }

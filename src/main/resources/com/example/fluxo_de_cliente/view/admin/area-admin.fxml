@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.fluxo_de_cliente.controller.AreaAdminController"
+            fx:controller="com.example.fluxo_de_cliente.controller.admin.AreaAdminController"
             style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #b3e0ff, white);">
 
     <!-- HEADER -->

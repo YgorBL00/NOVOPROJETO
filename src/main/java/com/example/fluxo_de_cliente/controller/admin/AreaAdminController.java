@@ -27,7 +27,7 @@ public class AreaAdminController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         criarCard("Criar Vendedor", "criar-vendedor.fxml");
-        criarCard("Lista de Materias", "material-list.fxml");
+        criarCard("Lista de Materias", "material-list-view.fxml");
         criarCard("Outros Recursos", null);
 
         // Fade In

@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.fluxo_de_cliente.controller.admin.MaterialListViewController"
+            fx:controller="com.example.fluxo_de_cliente.controller.admin.MaterialListController"
             prefWidth="1150" prefHeight="750">
 
     <top>
@@ -12,7 +13,10 @@
     </top>
 
     <center>
-        <VBox spacing="15" alignment="CENTER" padding="20">
+        <VBox spacing="15" alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
             <TableView fx:id="tableMateriais" prefHeight="500" prefWidth="1100">
                 <columns>
                     <TableColumn fx:id="colId" text="ID"/>
