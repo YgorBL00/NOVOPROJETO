@@ -1,6 +1,5 @@
 package com.example.fluxo_de_cliente.controller;
 
-import com.example.fluxo_de_cliente.controller.admin.AreaAdminController;
 import com.example.fluxo_de_cliente.controller.vendedor.AreaVendedorController;
 import com.example.fluxo_de_cliente.model.Usuario;
 import com.example.fluxo_de_cliente.service.AuthService;
@@ -30,11 +29,16 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        emailField.setText(prefs.get("email_salvo", ""));
+        // Recuperar email salvo
+        String emailSalvo = prefs.get("email_salvo", "");
+        emailField.setText(emailSalvo);
 
+        // Fade in
         conteudo.setOpacity(0);
+
         FadeTransition fadeIn =
                 new FadeTransition(Duration.millis(800), conteudo);
+
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
@@ -55,16 +59,16 @@ public class LoginController implements Initializable {
 
         prefs.put("email_salvo", email);
 
-        if ("ADMIN".equalsIgnoreCase(usuario.getCargo())) {
+        if (usuario.getCargo().equalsIgnoreCase("ADMIN")) {
 
-            Navegador.trocarTela("admin/area-admin.fxml", controller -> {
-                AreaAdminController ctrl = (AreaAdminController) controller;
+            Navegador.trocarTela("area-admin.fxml", controller -> {
+                com.example.fluxo_de_cliente.controller.admin.AreaAdminController ctrl = (com.example.fluxo_de_cliente.controller.admin.AreaAdminController) controller;
                 ctrl.setUsuario(usuario);
             });
 
         } else {
 
-            Navegador.trocarTela("vendedor/AreaVendedorView.fxml", controller -> {
+            Navegador.trocarTela("area-vendedor.fxml", controller -> {
                 AreaVendedorController ctrl = (AreaVendedorController) controller;
                 ctrl.setUsuario(usuario);
             });

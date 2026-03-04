@@ -4,9 +4,11 @@ import com.example.fluxo_de_cliente.database.DatabaseConnection;
 import com.example.fluxo_de_cliente.service.VersaoChecker;
 import com.example.fluxo_de_cliente.util.Navegador;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 
 import java.sql.Connection;
 
@@ -23,9 +25,8 @@ public class Launcher extends Application {
             e.printStackTrace();
         }
 
-        // 🔥 ESSENCIAL
+        Navegador.init(stage); // 🔥 inicializa
 
-        Navegador.init(stage);
         Navegador.trocarTela("painel-inicial.fxml");
 
         stage.setTitle("Fluxo de Cliente");
@@ -36,20 +37,16 @@ public class Launcher extends Application {
                         "/com/example/fluxo_de_cliente/icons/icone.png"))
         );
 
-        stage.show(); // 👈 show SÓ depois de tudo
+        stage.show();
     }
-
 
 
     public static void main(String[] args) {
         launch(args);
     }
 
-
-
     // Melhor deixar isso fora do Launcher depois
     public static class AppInfo {
         public static final String VERSAO_ATUAL = "1.2.0";
     }
-
 }
