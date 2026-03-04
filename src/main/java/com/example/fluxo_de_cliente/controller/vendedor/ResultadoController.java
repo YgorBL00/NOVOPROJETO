@@ -27,6 +27,9 @@ public class ResultadoController {
     private int espessuraMm;
     private int indiceAtual = 0;
 
+    // ✅ ATRIBUTO QUE FALTAVA
+    private String nomeCliente;
+
     /* =========================
        CICLO DE VIDA
        ========================= */
@@ -40,7 +43,6 @@ public class ResultadoController {
         btnAnterior.setDisable(true);
         btnProximo.setDisable(true);
 
-        // Espera a cena carregar totalmente
         javafx.application.Platform.runLater(() -> {
             scrollPane.setStyle("-fx-background-color: transparent;");
 
@@ -58,11 +60,13 @@ public class ResultadoController {
     public void carregarDados(
             Usuario usuario,
             List<ResultadoFormato> resultados,
+            String nomeCliente,
             boolean possuiPiso,
             int espessuraMm
     ) {
         this.usuario = usuario;
         this.resultados = resultados;
+        this.nomeCliente = nomeCliente;
         this.possuiPiso = possuiPiso;
         this.espessuraMm = espessuraMm;
 
@@ -107,7 +111,9 @@ public class ResultadoController {
         conteudo.getChildren().clear();
 
         ResultadoFormato r = resultados.get(indiceAtual);
-        lblTitulo.setText("Montagem: " + r.nome);
+
+        // ✅ TÍTULO COM CLIENTE
+        lblTitulo.setText("Cliente: " + nomeCliente + "  |  Montagem: " + r.nome);
 
         conteudo.getChildren().add(secao(
                 "PAREDES",
@@ -153,15 +159,14 @@ public class ResultadoController {
         -fx-border-radius: 10;
         -fx-border-color: #d9d9d9;
         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
-    """);
+        """);
 
-        // ===== TÍTULO =====
         Label tituloLbl = new Label(tipo);
         tituloLbl.setStyle("""
         -fx-font-size: 15px;
         -fx-font-weight: bold;
         -fx-text-fill: #2b7cff;
-    """);
+        """);
 
         box.getChildren().addAll(tituloLbl, new Separator());
 
@@ -170,30 +175,23 @@ public class ResultadoController {
         int qtdRecortes = (recortes == null) ? 0 : recortes.size();
         int qtdInteiros = quantidadePaineis - qtdRecortes;
 
-        // ===== PAINÉIS INTEIROS =====
         if (qtdInteiros > 0) {
-            String linhaInteiros = String.format(
-                    "%d PAINEIS DE PIR %dmm %.2fX%.2fm - %s",
-                    qtdInteiros,
-                    espessuraMm,
-                    largura,
-                    alturaPainel,
-                    tipo
-            );
-            box.getChildren().add(labelLinha(linhaInteiros));
+            box.getChildren().add(labelLinha(
+                    String.format(
+                            "%d PAINÉIS DE PIR %dmm %.2fX%.2fm - %s",
+                            qtdInteiros, espessuraMm, largura, alturaPainel, tipo
+                    )
+            ));
         }
 
-        // ===== PAINÉIS COM RECORTE =====
         if (qtdRecortes > 0) {
             for (FormatoCalculator.Recorte r : recortes) {
-                String linhaRecorte = String.format(
-                        "1 PAINEL DE PIR %dmm %.2fX%.2fm (RECORTE) - %s",
-                        espessuraMm,
-                        r.largura,
-                        r.altura,
-                        tipo
-                );
-                box.getChildren().add(labelLinha(linhaRecorte));
+                box.getChildren().add(labelLinha(
+                        String.format(
+                                "1 PAINEL DE PIR %dmm %.2fX%.2fm (RECORTE) - %s",
+                                espessuraMm, r.largura, r.altura, tipo
+                        )
+                ));
             }
         }
 
@@ -206,7 +204,7 @@ public class ResultadoController {
         -fx-font-size: 14px;
         -fx-font-weight: bold;
         -fx-text-fill: #333;
-    """);
+        """);
         return lbl;
     }
 
@@ -220,29 +218,18 @@ public class ResultadoController {
         -fx-border-radius: 10;
         -fx-border-color: #2b7cff;
         -fx-border-width: 1.5;
-    """);
-
-        Label titulo = new Label("RESUMO FINAL");
-        titulo.setStyle("""
-        -fx-font-size: 18px;
-        -fx-font-weight: bold;
-        -fx-text-fill: #2b7cff;
-    """);
+        """);
 
         double largura = FormatoCalculator.LARGURA_PAINEL;
 
         double areaParede = r.paineisParede * largura * r.alturaParedeReal;
         double areaTeto   = r.paineisTeto   * largura * r.alturaTetoReal;
-        double areaPiso   = possuiPiso
-                ? r.paineisPiso * largura * r.alturaPisoReal
-                : 0;
-
-        double areaTotal = areaParede + areaTeto + areaPiso;
+        double areaPiso   = possuiPiso ? r.paineisPiso * largura * r.alturaPisoReal : 0;
 
         resumo.getChildren().addAll(
-                titulo,
+                new Label("RESUMO FINAL"),
                 new Label("Total de painéis: " + r.totalPaineis),
-                new Label(String.format("Área total de painel: %.2f m²", areaTotal)),
+                new Label(String.format("Área total de painel: %.2f m²", areaParede + areaTeto + areaPiso)),
                 new Label(String.format("Desperdício: %.2f m²", r.desperdicioM2)),
                 new Label(String.format("Aproveitamento: %.1f%%", r.aproveitamento))
         );
@@ -257,11 +244,25 @@ public class ResultadoController {
 
         Button btnVoltar = new Button("Voltar");
         Button btnMateriais = new Button("Lista de Materiais");
-        Button btnPlantaBaixa = new Button("Planta Baixa"); // 👈 NOVO
+        Button btnPlantaBaixa = new Button("Planta Baixa");
 
-        btnVoltar.setOnAction(e -> Navegador.trocarTela("vendedor/caixote.fxml", c ->
-                ((CaixoteController) c).setUsuario(usuario)
-        ));
+        btnVoltar.setOnAction(e ->
+                Navegador.trocarTela("vendedor/caixote.fxml", c ->
+                        ((CaixoteController) c).setUsuario(usuario)
+                )
+        );
+
+        btnMateriais.setOnAction(e ->
+                Navegador.trocarTela("vendedor/lista-material-montagem.fxml", c -> {
+                    ListaMaterialMontagemController controller = (ListaMaterialMontagemController) c;
+                    controller.carregarDados(
+                            usuario,
+                            resultados.get(indiceAtual),
+                            espessuraMm
+                    );
+                })
+        );
+
 
         btnPlantaBaixa.setOnAction(e ->
                 Navegador.trocarTela("vendedor/planta_baixa.fxml", c -> {
@@ -270,12 +271,7 @@ public class ResultadoController {
                 })
         );
 
-        botoes.getChildren().addAll(
-                btnVoltar,
-                btnMateriais,
-                btnPlantaBaixa // 👈 adiciona aqui
-        );
-
+        botoes.getChildren().addAll(btnVoltar, btnMateriais, btnPlantaBaixa);
         conteudo.getChildren().add(botoes);
     }
 }

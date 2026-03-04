@@ -1,15 +1,11 @@
 package com.example.fluxo_de_cliente.controller.vendedor;
 
-import com.example.fluxo_de_cliente.dao.ClienteDAO;
-import com.example.fluxo_de_cliente.model.Cliente;
 import com.example.fluxo_de_cliente.model.Usuario;
 import com.example.fluxo_de_cliente.util.Navegador;
 import javafx.animation.FadeTransition;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -17,12 +13,19 @@ import java.util.ResourceBundle;
 
 public class ClientesController implements Initializable {
 
-    @FXML private TableView<Cliente> tabela;
+    // 🔹 PLACEHOLDER
+    @FXML
+    private Label emBreveLabel;
 
     private Usuario usuario;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        /*
+        ===============================
+        LÓGICA REAL (DESATIVADA TEMPORARIAMENTE)
+        ===============================
 
         TableColumn<Cliente, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(c ->
@@ -55,6 +58,16 @@ public class ClientesController implements Initializable {
         tabela.getItems().addAll(
                 new ClienteDAO().listarClientes()
         );
+        */
+
+        // 🔹 Placeholder visível
+        emBreveLabel.setOpacity(0);
+
+        FadeTransition fade =
+                new FadeTransition(Duration.millis(600), emBreveLabel);
+        fade.setFromValue(0);
+        fade.setToValue(1);
+        fade.play();
     }
 
     public void setUsuario(Usuario usuario) {
@@ -64,7 +77,9 @@ public class ClientesController implements Initializable {
     @FXML
     private void voltar() {
 
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(300), tabela.getScene().getRoot());
+        FadeTransition fadeOut =
+                new FadeTransition(Duration.millis(300),
+                        emBreveLabel.getScene().getRoot());
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
 

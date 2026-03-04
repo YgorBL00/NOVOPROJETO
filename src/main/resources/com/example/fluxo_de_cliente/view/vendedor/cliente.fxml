@@ -5,36 +5,24 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.fluxo_de_cliente.controller.vendedor.ClientesController"
-            style="-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #b3e0ff, white);">
+            fx:controller="com.example.fluxo_de_cliente.controller.vendedor.ClientesController">
 
-    <!-- TOPO -->
-    <top>
-        <Label text="Clientes Cadastrados"
-               style="-fx-font-size: 22; -fx-text-fill: #23336f;">
-            <BorderPane.margin>
-                <Insets top="20" left="20"/>
-            </BorderPane.margin>
-        </Label>
-    </top>
-
-    <!-- CENTRO -->
     <center>
-        <TableView fx:id="tabela"
-                   columnResizePolicy="CONSTRAINED_RESIZE_POLICY"/>
-    </center>
-
-    <!-- RODAPÉ -->
-    <bottom>
-        <VBox alignment="CENTER_RIGHT"
-              spacing="10">
-            <padding>
-                <Insets top="10" right="15" bottom="15"/>
-            </padding>
+        <VBox alignment="CENTER" spacing="20">
+            <Label fx:id="emBreveLabel"
+                   text="🚧 Em breve"
+                   style="-fx-font-size: 28px; -fx-text-fill: #23336f;"/>
 
             <Button text="Voltar"
-                    onAction="#voltar"/>
+                    onAction="#voltar"
+                    style="
+                        -fx-background-color: #245edb;
+                        -fx-text-fill: white;
+                        -fx-background-radius: 20;
+                        -fx-font-size: 14px;
+                        -fx-padding: 8 20 8 20;
+                    "/>
         </VBox>
-    </bottom>
+    </center>
 
 </BorderPane>

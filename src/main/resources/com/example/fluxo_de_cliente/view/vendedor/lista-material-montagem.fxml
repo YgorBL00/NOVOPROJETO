@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="com.example.fluxo_de_cliente.controller.vendedor.ListaMaterialMontagemController"
+            prefWidth="600"
+            prefHeight="400">
+
+    <Button fx:id="btnVoltar"
+            text="Voltar"
+            layoutX="20"
+            layoutY="20"/>
 
 </AnchorPane>

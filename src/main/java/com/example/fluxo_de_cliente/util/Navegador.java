@@ -48,9 +48,6 @@ public class Navegador {
 
             Scene scene = new Scene(root, 1150, 750);
 
-            // 🔥 ESSENCIAL — elimina o fundo branco
-            scene.setFill(Color.TRANSPARENT);
-
             stage.setScene(scene);
 
             // ❌ NÃO chame stage.show() aqui

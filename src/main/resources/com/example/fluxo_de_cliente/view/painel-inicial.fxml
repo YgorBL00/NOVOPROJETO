@@ -3,8 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.fluxo_de_cliente.controller.PainelInicialController"
@@ -15,12 +13,6 @@
             <padding>
                 <Insets top="40"/>
             </padding>
-
-            <!-- LOGO -->
-            <ImageView fx:id="logoView"
-                       fitWidth="220"
-                       preserveRatio="true"
-                       smooth="true"/>
 
             <!-- TEXTO -->
             <Label fx:id="mensagem"
